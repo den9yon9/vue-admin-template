@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="waiting" v-if="waiting">
+      <Loading size="60px"></Loading>
+      <span>请稍等... </span>
+    </div>
     <ItemEditor :item="itemToUpdate" :showeditor.sync="showEditor" @confirm="reload(needStore)"></ItemEditor>
     <ToolBar @clear="searchClear" @search="search" :keyword.sync="keyword">
       <div class="btn" @click="create">新增</div>
@@ -12,6 +16,8 @@
         </div>
         <div class="data">
           <Item v-for="item of items"  :item="item" @update="update(item)" @shift="shift(item)">{{item}}</Item>
+          <!-- 占位空白组件，撑开布局 -->
+          <Item v-for="item of 10" blank="true"></Item>
           <div class="hasmore" v-if="showLoadNotice">{{!hasmore?'已经到底了':loading?'加载中...':'下滑加载更多'}}</div>
         </div>
       </div>
@@ -28,12 +34,14 @@ import ItemEditor from '@/components/ItemEditor'
 /*@2：*/
 import Item from '@/components/Item'
 
+import { CubeShadow as Loading } from 'vue-loading-spinner'
+
 
 export default {
-  components: { ToolBar, ItemEditor, Item },
+  components: { ToolBar, ItemEditor, Item, Loading },
   data() {
     return {
-      items: [],
+      items: [1,2,3,4,5,6],
       itemToUpdate: null,
       pagesize: 50,
       pagenum: 1,
@@ -43,6 +51,7 @@ export default {
       loading: false,
       showLoadNotice: false,
       showEditor: false,
+      waiting: false, //针对操作时间较长的动作，给出执行动画
 
       /*@3：*/ 
       needStore: false // 是否需要websocket实时更新列表
@@ -79,16 +88,25 @@ export default {
     async shift(item) {
       let confirm = await this.$confirm('是否删除？')
       if(!confirm) return 
-      
       /*@4：*/ 
       let res = await this.$request.shiftItem({ id: item.id })
-      
       if(res.code === 0){
         this.$toasted.success('删除成功')
         this.reload(this.needStore)
       } else{
          this.$toasted.error('操作失败'+res.message)
       }
+    },
+
+    async action(item){
+      let confirm = await this.$confirm('是否执行此操作？')
+      if(!confirm) return
+      this.waiting = true
+      // TODO: some async action
+      this.waiting = false
+
+      // TODO: action result notice
+ 
     },
 
     async loadData(data = {}) {
@@ -155,6 +173,10 @@ export default {
         }
       }
     }
+  },
+
+  computed: {
+
   }
 }
 
@@ -179,7 +201,7 @@ export default {
 .data {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .btn {
@@ -194,6 +216,26 @@ export default {
   align-items: center;
   font-size: 0.75rem;
   cursor: pointer;
+}
+
+.waiting{
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.5);
+  position: absolute;
+  z-index: 2;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /*cursor: not-allowed;*/
+}
+
+.waiting span{
+  margin: 1rem;
+  color: #999;
+  font-size: 1rem;
 }
 
 </style>

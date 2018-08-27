@@ -1,6 +1,7 @@
 <template>
-  <div class="item">
-  	<div>{{item}}</div>
+  <div class="item blank" v-if="blank"></div>
+  <div class="item" v-else>
+    <div>{{item}}</div>
     <div class="actions">
       <div class="update action" @click="update">修改</div>
       <div class="shift action" @click="shift">删除</div>
@@ -9,7 +10,7 @@
 </template>
 <script>
 export default {
-  props: ['item'],
+  props: ['item', 'blank'],
   methods: {
     update() {
       this.$emit('update', this.item)
@@ -21,3 +22,12 @@ export default {
 }
 
 </script>
+<style scoped>
+.item{
+  margin: 0.5rem;
+}
+.blank {
+  height: 0;
+  opacity: 0;
+}
+</style>
