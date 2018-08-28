@@ -12,7 +12,6 @@ export default {
   components: { NavRow },
   data() {
     return {
-      /*@1：配置菜单*/ 
       menus: [{ name: 'somethinglist', path: '/something/list' }]
     }
   }

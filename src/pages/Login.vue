@@ -1,10 +1,21 @@
 <template>
   <div class="login">
+    <div class="title">
+      <h1>人脸进入系统管理后台</h1>
+    </div>
     <div class="login-form">
-      <input type="text" placeholder="用户名" v-model.trim="username">
-      <input type="password" placeholder="密码" v-model.trin="password">
+      <div class="input-item">
+        <input type="text" placeholder="用户名" v-model.trim="username">
+      </div>
+      <div class="input-item">
+        <input type="password" placeholder="密码" v-model.trin="password">
+      </div>
+      <div class="input-item">
+        <Selector :value.sync="value" :options="[{name: '站三', value: 0}, { name: '李四', value: 1}]" placeholder="请选择设备"></Selector>
+      </div>
+      
       <button @click="login">登陆</button>
-      <Selector :value.sync="value" :options="[{name: '站三', value: 0}, { name: '李四', value: 1}]" placeholder="asasf" style="width: 6rem;"></Selector>
+      
     </div>
   </div>
 </template>
@@ -45,6 +56,53 @@ export default {
 
 </script>
 <style scoped>
+.login{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: url(../assets/bg.png) #2f86f0;
+  background-size: cover;
+}
 
+.title{
+  margin-top: 60px;
+  color: #fff;
+}
 
+.login-form{
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-item{
+  width: 300px;
+  height: 40px;
+  margin: 10px;
+  border-radius: 2px;
+  padding-left: 10px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  /*overflow: hidden;*/
+}
+
+.input-item>*{
+  height: 100%;
+  flex-grow: 1;
+}
+
+button{
+  width: 300px;
+  height: 40px;
+  background: #1890FF;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 10px;
+}
 </style>

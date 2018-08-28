@@ -10,7 +10,23 @@
 </template>
 <script>
 export default {
-  props: ['item', 'blank'],
+  props: {
+    item: {
+      // 组件数据
+      type: Object,
+      required: true
+    },
+    blank: {
+      // 是否是用来做填充的组件
+      type: Boolean,
+      default: false
+    },
+    batching: {
+      // 是否处在批量处理模式
+      type: Boolean
+    }
+  },
+  props: ['item', 'blank', 'batching'],
   methods: {
     update() {
       this.$emit('update', this.item)

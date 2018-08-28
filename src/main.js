@@ -11,6 +11,7 @@ import Toasted from 'vue-toasted';
 import VueProgressBar from 'vue-progressbar'
 import modal from './plugins/modal.js'
 import axios from './plugins/axios.js'
+import util from './plugins/util.js'
 
 Vue.use(Toasted, {
   position: "top-center",
@@ -33,6 +34,7 @@ Vue.use(VueProgressBar, {
 })
 Vue.use(modal)
 Vue.use(axios)
+Vue.use(util)
 
 
 Vue.config.productionTip = false
