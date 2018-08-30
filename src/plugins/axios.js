@@ -10,20 +10,26 @@ const request = {
           url,
           data: qs.stringify(data),
           baseURL: window.domain,
-          withCredentials: true,
+          // withCredentials: true,
         })
-
         Vue.prototype.$Progress.finish()
 
-        if (res.status == 200) {
-          // alert('请求成功')
-          return res.data
-        } else {
-          Vue.prototype.$confirm({ content: `服务器出错啦${res.status}，请稍后再试` })
+        if (res.data.code !== 0) {
+          await Vue.prototype.$confirm({
+            content: `${ res.data.message},code:${res.data.code}`,
+            hidecancel: true
+          })
+          window.location.replace(window.location.protocol + '//' + window.location.host + window.location.pathname + '#/login')
         }
+        return res.data
       } catch (err) {
         Vue.prototype.$Progress.finish()
-        alert(err)
+        if (!err.response) {
+          Vue.prototype.$toasted.error('请求发起失败')
+          return
+        }
+        Vue.prototype.$toasted.error(`服务器出错啦, statusCode:${err.response.status}`)
+        console.error(err)
       }
     }
 

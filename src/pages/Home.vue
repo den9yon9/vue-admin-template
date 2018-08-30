@@ -8,9 +8,17 @@
 </template>
 <script>
 import NavCol from '@/components/NavCol'
+import ws from '@/ws.js'
 export default {
   components: { NavCol },
+  mounted() {
+    ws.connect.call(this)
+  },
   beforeDestory() {
+    ws.client.disconnect(res => {
+      console.log('websocket已断开')
+    })
+    
     localStorage.removeItem('login')
     // 回到登录页后刷新整个系统，避免动态添加重复路由
     window.location.replace(window.location.protocol + '//' + window.location.host + window.location.pathname)

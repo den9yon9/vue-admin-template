@@ -20,7 +20,8 @@
     "vue-progressbar": "^0.7.5",
     "vue-router": "^3.0.1",
     "vue-toasted": "^1.1.24",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "webstomp-client": "^1.2.4"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

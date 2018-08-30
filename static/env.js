@@ -1,1 +1,1 @@
-window.domain = 'https://www.baidu.com'
+window.domain = 'http://localhost:3000'

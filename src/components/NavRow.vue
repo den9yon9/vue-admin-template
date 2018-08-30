@@ -4,8 +4,8 @@
       <a :class="['menu', {active: active==menu.path.split('/')[2]}]" v-for="menu of menus" @click="menuChange(menu)">{{menu.name}}</a>
     </div>
     <div class="status">
-      <div class="avator"></div>
-      <div class="user">{{'用户名'}}</div>
+      <!-- <div class="avator"></div> -->
+      <!-- <div class="user">{{'用户名'}}</div> -->
       <!-- <div class="update-psw">修改密码</div> -->
       <div class="logout" @click="logout"></div>
     </div>
@@ -26,11 +26,10 @@ export default {
       this.$router.push(menu.path)
     },
     async logout() {
-      if (await this.$confirm('是否退出登录')) {
-        let res = await this.$request.logout({})
-        if (res.code === 0) {
-          this.$router.push('/login')
-        }
+      if (!await this.$confirm('是否退出登录')) return;
+      let res = await this.$request.logout({})
+      if (res.code === 0) {
+        this.$router.push('/login')
       }
     }
   },
