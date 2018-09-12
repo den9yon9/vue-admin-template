@@ -1,23 +1,18 @@
 <template>
   <div>
-
     <div class="waiting" v-if="waiting">
       <Loading size="60px"></Loading>
       <span>请稍等... </span>
     </div>
-
     <div class="batch" v-if="hasBatchAction">
       <div class="batch-ready" v-show="!batching" @click="batching = true">批量</div>
       <div class="batch-confirm" v-show="batching" @click="batchAction">操作({{batchItems.length}})</div>
       <div class="batch-cancel" v-show="batching" @click="batching = false">取消</div>
     </div>
-
     <ItemEditor :item="itemToUpdate" :showeditor.sync="showEditor" @confirm="reload(needStore)"></ItemEditor>
-
     <ToolBar @clear="searchClear" @search="search" :keyword.sync="keyword">
       <div class="btn" @click="create">新增</div>
     </ToolBar>
-
     <div class="content-box" @scroll="loadMore($event)">
       <div class="content">
         <div class="empty" v-if="!items.length&&!loading">
@@ -32,7 +27,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -59,7 +53,7 @@ export default {
   components: { ToolBar, ItemEditor, Item, Loading },
   data() {
     return {
-      items: [], 
+      items: [],
       itemToUpdate: null,
       pagesize: 50,
       pagenum: 1,
@@ -91,9 +85,12 @@ export default {
       if (!confirm) return
       // TODO: 数据处理
       console.log(item)
+
       this.waiting = true
-      // TODO: some async action
+      let res = await this.$request.action()
       this.waiting = false
+      if (!res) return
+      this.$toasted.success(res.msg)
       // TODO: action result notice and reload
 
     },
@@ -101,10 +98,12 @@ export default {
     async batchAction() {
       // TODO: 组装数据
       console.log(this.batchItems)
-      // TODO: 提交批量数据
+
       this.waiting = true
-      // TODO: some async action
+      let res = await this.$request.batchAction()
       this.waiting = false
+      if (!res) return
+      this.$toasted.success(res.msg)
       // TODO: action result notice and reload
 
     },
@@ -122,11 +121,10 @@ export default {
       // data.status = '0,1'
       // data.channel = 1
 
-      this.pagenum = this.pagenum + 1;
-
+      this.pagenum ++
       let res = await this.$request.queryItems(data)
-
       this.loading = false;
+      if (!res) return
 
       if (!res.result.rows.length) {
         this.pagenum = this.pagenum - 1;
@@ -155,12 +153,10 @@ export default {
       let confirm = await this.$confirm('是否删除？')
       if (!confirm) return
       let res = await this.$request.shiftItem({ id: item.id })
-      if (res.code === 0) {
-        this.$toasted.success('删除成功')
-        this.reload(this.needStore)
-      } else {
-        this.$toasted.error('操作失败' + res.message)
-      }
+      if (!res) return
+      this.$toasted.success(res.msg)
+      this.reload(this.needStore)
+
     },
 
     search() {
@@ -236,6 +232,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  padding: 1rem;
 }
 
 .btn {

@@ -13,9 +13,7 @@
       <div class="input-item">
         <Selector :value.sync="value" :options="[{name: '站三', value: 0}, { name: '李四', value: 1}]" placeholder="请选择设备"></Selector>
       </div>
-      
       <button @click="login">登陆</button>
-      
     </div>
   </div>
 </template>
@@ -42,13 +40,10 @@ export default {
         this.$toasted.error('请输入密码！')
       } else {
         let res = await this.$request.login({ username: this.username, password: this.password })
-        if (res.code === 0) {
-          localStorage.setItem('login', true)
-          addRouter()
-          this.$router.push('/')
-        } else {
-          this.$toasted.error(res.message)
-        }
+        if (!res) return
+        localStorage.setItem('login', true)
+        addRouter()
+        this.$router.push('/')
       }
     }
   }
@@ -56,7 +51,7 @@ export default {
 
 </script>
 <style scoped>
-.login{
+.login {
   height: 100%;
   width: 100%;
   display: flex;
@@ -66,19 +61,19 @@ export default {
   background-size: cover;
 }
 
-.title{
+.title {
   margin-top: 60px;
   color: #fff;
 }
 
-.login-form{
+.login-form {
   margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.input-item{
+.input-item {
   width: 300px;
   height: 40px;
   margin: 10px;
@@ -91,12 +86,12 @@ export default {
   /*overflow: hidden;*/
 }
 
-.input-item>*{
+.input-item>* {
   height: 100%;
   flex-grow: 1;
 }
 
-button{
+button {
   width: 300px;
   height: 40px;
   background: #1890FF;
@@ -105,4 +100,19 @@ button{
   font-size: 18px;
   letter-spacing: 10px;
 }
+
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+input[type=text]:focus,
+input[type=password]:focus,
+textarea:focus {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+
 </style>

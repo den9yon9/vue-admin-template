@@ -39,11 +39,13 @@ export default {
 
 </script>
 <style scoped>
-.item{
+.item {
   margin: 0.5rem;
 }
+
 .blank {
   height: 0;
   opacity: 0;
 }
+
 </style>

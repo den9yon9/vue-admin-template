@@ -4,7 +4,7 @@
     	<slot></slot>
     </div>
     <div class="search-bar">
-      <input type="text" v-model.trim="word">
+      <input type="text" v-model.trim="word" :placeholder="searchPlaceholder">
       <div class="icon" @click="search">
         <transition name="fade">
           <div class="clear" @click.stop="clear" v-show="word"></div>
@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  props: ['keyword'],
+  props: ['keyword', 'searchPlaceholder'],
   data() {
     return {
     	word: ''

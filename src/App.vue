@@ -116,18 +116,6 @@ button:hover {
 }
 
 
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset;
-}
-
-input[type=text]:focus,
-input[type=password]:focus,
-textarea:focus {
-  -webkit-box-shadow: 0 0 0 1000px white inset;
-}
-
 
 
 /* 渐隐渐现动画*/

@@ -27,10 +27,9 @@ export default {
     },
     async logout() {
       if (!await this.$confirm('是否退出登录')) return;
-      let res = await this.$request.logout({})
-      if (res.code === 0) {
-        this.$router.push('/login')
-      }
+      let res = await this.$request.logout()
+      if (!res) return
+      this.$router.push('/login')
     }
   },
   computed: {

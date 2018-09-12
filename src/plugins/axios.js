@@ -10,8 +10,9 @@ const request = {
           url,
           data: qs.stringify(data),
           baseURL: window.domain,
-          // withCredentials: true,
+          // withCredentials: true,  // 是否允许跨域设置cookie
         })
+
         Vue.prototype.$Progress.finish()
 
         if (res.data.code !== 0) {
@@ -19,7 +20,11 @@ const request = {
             content: `${ res.data.message},code:${res.data.code}`,
             hidecancel: true
           })
-          window.location.replace(window.location.protocol + '//' + window.location.host + window.location.pathname + '#/login')
+          if (false) {
+            // 如果登陆失效则跳转到登陆页
+            window.location.replace(window.location.protocol + '//' + window.location.host + window.location.pathname + '#/login')
+          }
+          return
         }
         return res.data
       } catch (err) {
@@ -32,7 +37,6 @@ const request = {
         console.error(err)
       }
     }
-
 
 
     Vue.prototype.$request = {
