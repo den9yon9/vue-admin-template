@@ -122,9 +122,6 @@ export default {
 
     showeditor() {
       this.showdialog = this.showeditor
-    },
-
-    item() {
       if (this.item) {
         this.field1 = this.item.field1
         this.field2 = this.item.field2
@@ -141,7 +138,6 @@ export default {
         this.fileurl = '../../static/avatar.png'
       }
     }
-
   }
 }
 

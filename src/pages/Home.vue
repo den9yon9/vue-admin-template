@@ -14,7 +14,7 @@ export default {
   mounted() {
     ws.connect.call(this)
   },
-  beforeDestory() {
+  beforeDestroy() {
     ws.client.disconnect(res => {
       console.log('websocket已断开')
     })
