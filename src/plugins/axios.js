@@ -16,14 +16,15 @@ const request = {
         Vue.prototype.$Progress.finish()
 
         if (res.data.code !== 0) {
+          if (false) {
+            // 如果登陆失效则跳转到登陆页
+            window.location.replace(window.location.protocol + '//' + window.location.host + window.location.pathname + '#/login')
+            return
+          }
           await Vue.prototype.$confirm({
             content: `${ res.data.message},code:${res.data.code}`,
             hidecancel: true
           })
-          if (false) {
-            // 如果登陆失效则跳转到登陆页
-            window.location.replace(window.location.protocol + '//' + window.location.host + window.location.pathname + '#/login')
-          }
           return
         }
         return res.data

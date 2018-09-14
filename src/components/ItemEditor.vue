@@ -55,9 +55,9 @@ export default {
     }
   },
   async mounted() {
-    let res = await this.$request.queryoptions({ pagesize: 100, pagenum: 1 })
-    if (!res) return
-    this.options = res.data.map(n => ({ name: n.name, value: n.id }))
+    // let res = await this.$request.queryoptions({ pagesize: 100, pagenum: 1 })
+    // if (!res) return
+     // this.options = res.data.map(n => ({ name: n.name, value: n.id }))
   },
 
   methods: {
