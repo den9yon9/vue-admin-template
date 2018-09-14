@@ -4,7 +4,7 @@
     	<slot></slot>
     </div>
     <div class="search-bar">
-      <input type="text" v-model.trim="word" :placeholder="searchPlaceholder">
+      <input type="text" v-model.trim="word" :placeholder="searchPlaceholder" @keydown.enter="search">
       <div class="icon" @click="search">
         <transition name="fade">
           <div class="clear" @click.stop="clear" v-show="word"></div>
