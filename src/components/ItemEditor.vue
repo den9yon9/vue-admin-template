@@ -64,7 +64,7 @@ export default {
     async confirm() {
 
       if (!this.field1 || !this.field2 || !this.field3 || !this.field4 || this.time.length !== 2 || this.fileurl === '../../static/avatar.png') {
-        this.$toasted('请检查资料是否填写完整')
+        this.$toasted.error('请检查资料是否填写完整')
         return
       }
 
