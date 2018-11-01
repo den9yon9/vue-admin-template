@@ -3,21 +3,9 @@
     <div class="logo">
       <img src="../assets/logo.png" alt="logo">
     </div>
-    <div class="nav" :class="{active: active=='something'}" @click="navChange('something')">
-      <img src="../assets/logo.png">
-      <div>something</div>
-    </div>
-    <div class="nav" :class="{active: active=='nav2'}" @click="navChange('nav2')">
-      <img src="../assets/logo.png">
-      <div>nav2</div>
-    </div>
-    <div class="nav" :class="{active: active=='nav3'}" @click="navChange('nav3')">
-      <img src="../assets/logo.png">
-      <div>nav3</div>
-    </div>
-    <div class="nav" :class="{active: active=='nav4'}" @click="navChange('nav4')">
-      <img src="../assets/logo.png">
-      <div>nav4</div>
+    <div class="nav" v-for="menu of menus" :class="{active: active==menu.path}" @click="navChange(menu.path)">
+      <img :src="menu.icon">
+      <div>订单</div>
     </div>
   </div>
 </template>
@@ -25,34 +13,43 @@
 export default {
   data() {
     return {
-      active: this.$route.path.split('/')[1]
-    }
+      active: this.$route.path.split("/")[1],
+      menus: [
+        {
+          path: "register",
+          icon: require("../assets/logo.png")
+        },
+        {
+          path: "statistics",
+          icon: require("../assets/logo.png")
+        }
+      ]
+    };
   },
   methods: {
     navChange(nav) {
-      this.active = nav
-      this.$router.push(`/${nav}`)
+      this.active = nav;
+      this.$router.push(`/${nav}`);
     }
   },
   computed: {
     route() {
-      return this.$route.path
+      return this.$route.path;
     }
   },
   watch: {
     route() {
-      this.active = this.$route.path.split('/')[1]
+      this.active = this.$route.path.split("/")[1];
     }
   }
-}
-
+};
 </script>
 <style scoped>
 .navcol {
   width: 5rem;
   background-color: #6967ea;
   flex-shrink: 0;
-  z-index: 1
+  z-index: 1;
 }
 
 .logo {
@@ -83,7 +80,7 @@ export default {
   width: 100%;
 }
 
-.nav img{
+.nav img {
   width: 30%;
   margin-bottom: 4px;
 }
@@ -96,5 +93,4 @@ export default {
   transition: all 0.2s;
   opacity: 1;
 }
-
 </style>
