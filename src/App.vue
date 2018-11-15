@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-dialog/>
-    <vue-progress-bar></vue-progress-bar>
+    <vue-progress-bar/>
     <transition name="slide" mode="out-in">
       <router-view/>
     </transition>
@@ -32,10 +32,7 @@ export default {
   height: 100%;
 }
 
-
-
 /*NavRow下方的页面容器*/
-
 .container {
   overflow: hidden;
   flex-grow: 1;
@@ -45,9 +42,7 @@ export default {
   position: relative;
 }
 
-
 /*ToolBar下方的内容容器*/
-
 .content-box {
   padding: 0 1.167rem 0 1.667rem;
   flex-grow: 1;
@@ -59,14 +54,11 @@ export default {
   margin-bottom: 0.4rem;
 }
 
-
 /*内容区*/
-
 .content {
   background-color: #fff;
   flex-grow: 1;
 }
-
 
 html {
   /*font-size: 12px;*/
@@ -116,10 +108,7 @@ button:hover {
 }
 
 
-
-
 /* 渐隐渐现动画*/
-
 .fade-enter {
   transform: translateX(0) scale(1) skew(0deg) rotate(0deg);
   transition: 0.25s all;
@@ -139,10 +128,7 @@ button:hover {
   transition: 0.25s all;
 }
 
-
-
 /*浮现动画*/
-
 .float-enter {
   transform: translateX(1rem) scale(0.98) skew(1deg) rotate(0deg);
   opacity: 0;
@@ -161,10 +147,7 @@ button:hover {
   transition: 0.35s all;
 }
 
-
-
 /*滑动动画*/
-
 .slide-enter {
   transform: translateX(0.3rem) scale(1) skew(0deg) rotate(0deg);
   opacity: 0;

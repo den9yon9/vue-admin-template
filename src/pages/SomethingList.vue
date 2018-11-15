@@ -92,11 +92,9 @@
         if (!confirm) return
         // TODO: 数据处理
         console.log(item)
-
         this.waiting = true
         let res = await this.$request.action()
         this.waiting = false
-        if (!res) return
         this.$toasted.success(res.msg)
         // TODO: action result notice and reload
 
@@ -109,10 +107,8 @@
         this.waiting = true
         let res = await this.$request.batchAction()
         this.waiting = false
-        if (!res) return
         this.$toasted.success(res.msg)
         // TODO: action result notice and reload
-
       },
 
       async loadData(data = {}) {
@@ -131,7 +127,6 @@
         this.pagenum++
         let res = await this.$request.queryItems(data)
         this.loading = false;
-        if (!res) return
 
         if (!res.result.rows.length) {
           this.pagenum = this.pagenum - 1;
@@ -162,10 +157,8 @@
         let res = await this.$request.shiftItem({
           id: item.id
         })
-        if (!res) return
         this.$toasted.success(res.msg)
         this.reload(this.needStore)
-
       },
 
       search() {

@@ -6,10 +6,17 @@ const store = new Vuex.Store({
   state: {
     items: []
   },
+
   mutations: {
-    clearitems(state) {
+
+    clearItems(state) {
       state.items = []
+    },
+
+    getItems(state, item) {
+      state.items.push(item)
     }
+
   }
 })
 

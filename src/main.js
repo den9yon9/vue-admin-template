@@ -5,21 +5,20 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-
 // 一堆插件
-import Toasted from 'vue-toasted';
-import VueProgressBar from 'vue-progressbar'
+import toasted from 'vue-toasted'
+import vueProgressBar from 'vue-progressbar'
 import modal from './plugins/modal.js'
 import axios from './plugins/axios.js'
 import util from './plugins/util.js'
 
-Vue.use(Toasted, {
+Vue.use(toasted, {
   position: "top-center",
   duration: 2000,
   theme: 'outline'
 })
 
-Vue.use(VueProgressBar, {
+Vue.use(vueProgressBar, {
   color: '#bffaf3',
   failedColor: '#874b4b',
   thickness: '5px',
@@ -35,7 +34,6 @@ Vue.use(VueProgressBar, {
 Vue.use(modal)
 Vue.use(axios)
 Vue.use(util)
-
 
 Vue.config.productionTip = false
 

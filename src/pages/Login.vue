@@ -8,7 +8,7 @@
         <input type="text" placeholder="用户名" v-model.trim="username">
       </div>
       <div class="input-item">
-        <input type="password" placeholder="密码" v-model.trin="password">
+        <input type="password" placeholder="密码" v-model.trim="password">
       </div>
       <div class="input-item">
         <Selector :value.sync="value" :options="[{name: '站三', value: 0}, { name: '李四', value: 1}]" placeholder="请选择设备"></Selector>
@@ -40,7 +40,7 @@ export default {
         this.$toasted.error('请输入密码！')
       } else {
         let res = await this.$request.login({ username: this.username, password: this.password })
-        if (!res) return
+        console.log(res)
         localStorage.setItem('login', true)
         addRouter()
         this.$router.push('/')
