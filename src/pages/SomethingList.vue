@@ -188,7 +188,9 @@
         this.showLoadNotice = false
         this.hasmore = true
         this.pagenum = 1;
-        this.$store.commit("clearitems");
+        if (needStore) {
+          this.$store.commit("clearitems");
+        }
         this.items = needStore ? this.$store.state.items : []
         let res = await this.loadData()
         this.items.push(...res.result.rows)
