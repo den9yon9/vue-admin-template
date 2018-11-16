@@ -85,7 +85,6 @@ export default {
         // 添加待修改信息的主键
         formData.append('id', this.item.id)
         let res = await this.$request.updateitem(formData)
-        if (!res) return
         this.$toasted.success('修改成功')
         this.showdialog = false
         this.$emit('confirm')
@@ -93,7 +92,6 @@ export default {
       } else {
         // 新增信息
         let res = await this.$request.createitem(formData)
-        if (!res) return
         this.$toasted.success(res.msg)
         this.showdialog = false
         this.$emit('confirm')
