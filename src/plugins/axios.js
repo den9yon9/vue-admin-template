@@ -18,7 +18,6 @@ const request = {
           // withCredentials: true,  // 是否允许跨域设置cookie
         })
 
-        Vue.prototype.$Progress.finish()
         if (res.data.code !== 0) {
           if (false) {
             // 如果登陆失效则跳转到登陆页
@@ -29,18 +28,18 @@ const request = {
         }
         return res.data
       } catch (err) {
-        Vue.prototype.$Progress.finish()
         if (err.message === 'Network Error') {
           err.message = '请求失败，网络错误'
         } else if (err.message.substr(0, 14) === 'Request failed') {
           err.message = `请求失败，code:${err.message.split('code')[1]}`
         }
-
         await Vue.prototype.$confirm({
           content: err.message,
           hidecancel: true
         })
         throw err
+      } finally {
+        Vue.prototype.$Progress.finish()
       }
     }
 
