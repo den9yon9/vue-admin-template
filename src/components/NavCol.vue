@@ -5,7 +5,7 @@
     </div>
     <div class="nav" v-for="menu of menus" :class="{active: active==menu.path}" @click="navChange(menu.path)">
       <img :src="menu.icon">
-      <div>订单</div>
+      <div>{{menu.name}}</div>
     </div>
   </div>
 </template>
@@ -16,11 +16,13 @@ export default {
       active: this.$route.path.split("/")[1],
       menus: [
         {
-          path: "register",
+          path: "users",
+          name: '用户',
           icon: require("../assets/logo.png")
         },
         {
           path: "statistics",
+          name: '数据',
           icon: require("../assets/logo.png")
         }
       ]

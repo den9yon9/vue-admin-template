@@ -14,7 +14,7 @@ const request = {
           method,
           url,
           data: mime === 'json' ? data : qs.stringify(data),
-          baseURL: window.domain,
+          baseURL: window.http_domain,
           // withCredentials: true,  // 是否允许跨域设置cookie
         })
 
@@ -49,42 +49,23 @@ const request = {
 
       async login(data) {
         return await request({
-          url: 'login',
+          url: '/user/login',
           data
         })
       },
 
-      async logout(data) {
+      // 查询用户列表
+      async queryUser(data){
         return await request({
-          url: 'logout',
+          url: '/power/queryuser',
           data
         })
       },
 
-      async queryItems(data) {
+      //  用户增删改
+      async UserAction(data){
         return await request({
-          url: 'items/query',
-          data
-        })
-      },
-
-      async createItem(data) {
-        return await request({
-          url: 'items/create',
-          data
-        })
-      },
-
-      async updateItem(data) {
-        return await request({
-          url: 'items/update',
-          data
-        })
-      },
-
-      async shiftItem(data) {
-        return await request({
-          url: 'items/shift',
+          url: '/power/changeuser',
           data
         })
       }
