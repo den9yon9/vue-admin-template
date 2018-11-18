@@ -3,7 +3,7 @@
     <div class="form">
       <div class="avatar">
         <div class="avatar-img">
-          <img :src="fileurl">
+          <img :src="fileurl" onerror="this.src='./static/avator.png'">
         </div>
         <div class="avatar-upload">
           <span>选择图片</span>
@@ -42,7 +42,7 @@ export default {
       showdialog: false,
 
       // 表单辅助字段(根据需要增减)
-      fileurl: '../../static/avatar.png',
+      fileurl: '',
       options: [], // 选择组件选项
 
       // 表单字段(根据需要增减)
@@ -63,7 +63,7 @@ export default {
   methods: {
     async confirm() {
 
-      if (!this.field1 || !this.field2 || !this.field3 || !this.field4 || this.time.length !== 2 || this.fileurl === '../../static/avatar.png') {
+      if (!this.field1 || !this.field2 || !this.field3 || !this.field4 || this.time.length !== 2 || this.fileurl === '') {
         this.$toasted.error('请检查资料是否填写完整')
         return
       }
@@ -85,7 +85,6 @@ export default {
         // 添加待修改信息的主键
         formData.append('id', this.item.id)
         let res = await this.$request.updateitem(formData)
-        if (!res) return
         this.$toasted.success('修改成功')
         this.showdialog = false
         this.$emit('confirm')
@@ -93,7 +92,6 @@ export default {
       } else {
         // 新增信息
         let res = await this.$request.createitem(formData)
-        if (!res) return
         this.$toasted.success(res.msg)
         this.showdialog = false
         this.$emit('confirm')
@@ -135,7 +133,7 @@ export default {
         this.field3 = ''
         this.field4 = ''
         this.time = [new Date(), new Date(new Date().getTime() + 365 * 24 * 3600 * 1000)]
-        this.fileurl = '../../static/avatar.png'
+        this.fileurl = ''
       }
     }
   }

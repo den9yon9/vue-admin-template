@@ -93,8 +93,11 @@
         // TODO: 数据处理
         console.log(item)
         this.waiting = true
-        let res = await this.$request.action()
-        this.waiting = false
+        try {
+          var res = await this.$request.action()
+        } finally {
+          this.waiting = false
+        }
         this.$toasted.success(res.msg)
         // TODO: action result notice and reload
 
@@ -103,17 +106,19 @@
       async batchAction() {
         // TODO: 组装数据
         console.log(this.batchItems)
-
         this.waiting = true
-        let res = await this.$request.batchAction()
-        this.waiting = false
+        try {
+          let res = await this.$request.batchAction()
+        } finally {
+          this.waiting = false
+        }
         this.$toasted.success(res.msg)
         // TODO: action result notice and reload
       },
 
       async loadData(data = {}) {
         if (this.loading) {
-          return;
+          return
         }
         this.loading = true;
         data.pageSize = this.pagesize;
@@ -123,10 +128,12 @@
         // 此处可添加添加固定参数
         // data.status = '0,1'
         // data.channel = 1
-
         this.pagenum++
-        let res = await this.$request.queryItems(data)
-        this.loading = false;
+        try {
+          var res = await this.$request.queryItems(data)
+        } finally {
+          this.loading = false;
+        }
 
         if (!res.result.rows.length) {
           this.pagenum = this.pagenum - 1;
@@ -146,7 +153,6 @@
             n => this.items.indexOf(n) === -1
           );
         }
-
         return res
       },
 
@@ -188,7 +194,9 @@
         this.showLoadNotice = false
         this.hasmore = true
         this.pagenum = 1;
-        this.$store.commit("clearitems");
+        if (needStore) {
+          this.$store.commit("clearitems");
+        }
         this.items = needStore ? this.$store.state.items : []
         let res = await this.loadData()
         this.items.push(...res.result.rows)
@@ -198,9 +206,7 @@
         this.showLoadNotice = e.target.scrollHeight > e.target.clientHeight
         if (e.target.scrollHeight - e.target.offsetHeight <= e.target.scrollTop + 2) {
           let res = await this.loadData()
-          if (res) {
-            this.items.push(...res.result.rows);
-          }
+          this.items.push(...res.result.rows);
         }
       }
     },
