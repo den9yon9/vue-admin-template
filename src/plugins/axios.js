@@ -14,6 +14,7 @@ const request = {
           method,
           url,
           data: mime === 'json' ? data : qs.stringify(data),
+          params: method=='get' ? data : undefined,
           baseURL: window.http_domain,
           // withCredentials: true,  // 是否允许跨域设置cookie
         })
