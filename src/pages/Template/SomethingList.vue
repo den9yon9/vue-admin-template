@@ -108,7 +108,7 @@
         console.log(this.batchItems)
         this.waiting = true
         try {
-          let res = await this.$request.batchAction()
+          var res = await this.$request.batchAction()
         } finally {
           this.waiting = false
         }
