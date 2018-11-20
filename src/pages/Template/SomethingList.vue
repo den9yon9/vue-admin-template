@@ -65,6 +65,7 @@
         pagesize: 50,
         pagenum: 1,
         keyword: '',
+        index: 1, // 列表网络请求次序
 
         //  flag
         searching: false,
@@ -117,10 +118,15 @@
       },
 
       async loadData(data = {}) {
-        if (this.loading) {
+        let index = this.index++
+        // data.cancel：当上一次请求还未返回时是否取消请求，true则直接取消取消此次请求，
+        // 等上一次请求返回，false则结合this.index，以最后一次的请求为准， true的使用场景为loadMore，false的使用场景为reload
+        if (this.loading && data.cancel) {
           return
         }
         this.loading = true;
+        
+        delete data.cancel;
         data.pageSize = this.pagesize;
         data.pageNum = this.pagenum;
 
@@ -153,6 +159,7 @@
             n => this.items.indexOf(n) === -1
           );
         }
+        res.index = index
         return res
       },
 
@@ -198,14 +205,16 @@
           this.$store.commit("clearitems");
         }
         this.items = needStore ? this.$store.state.items : []
-        let res = await this.loadData()
-        this.items.push(...res.result.rows)
+        let res = await this.loadData({cancel: false})
+        if(res.index == this.index+1){
+          this.items.push(...res.result.rows)
+        }
       },
 
       async loadMore(e) {
         this.showLoadNotice = e.target.scrollHeight > e.target.clientHeight
         if (e.target.scrollHeight - e.target.offsetHeight <= e.target.scrollTop + 2) {
-          let res = await this.loadData()
+          let res = await this.loadData({cancel: true})
           this.items.push(...res.result.rows);
         }
       }
