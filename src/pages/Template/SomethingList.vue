@@ -125,7 +125,7 @@
           return
         }
         this.loading = true;
-        
+
         delete data.cancel;
         data.pageSize = this.pagesize;
         data.pageNum = this.pagenum;
@@ -205,8 +205,10 @@
           this.$store.commit("clearitems");
         }
         this.items = needStore ? this.$store.state.items : []
-        let res = await this.loadData({cancel: false})
-        if(res.index == this.index+1){
+        let res = await this.loadData({
+          cancel: false
+        })
+        if (res.index == this.index + 1) {
           this.items.push(...res.result.rows)
         }
       },
@@ -214,8 +216,12 @@
       async loadMore(e) {
         this.showLoadNotice = e.target.scrollHeight > e.target.clientHeight
         if (e.target.scrollHeight - e.target.offsetHeight <= e.target.scrollTop + 2) {
-          let res = await this.loadData({cancel: true})
-          this.items.push(...res.result.rows);
+          let res = await this.loadData({
+            cancel: true
+          })
+          if (res) {
+            this.items.push(...res.result.rows);
+          }
         }
       }
     },
