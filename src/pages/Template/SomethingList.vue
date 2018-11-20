@@ -208,7 +208,7 @@
         let res = await this.loadData({
           cancel: false
         })
-        if (res.index == this.index + 1) {
+        if (res.index + 1 == this.index ) {
           this.items.push(...res.result.rows)
         }
       },
