@@ -9,7 +9,7 @@
       <div class="batch-confirm" v-show="batching" @click="batchAction">操作({{batchItems.length}})</div>
       <div class="batch-cancel" v-show="batching" @click="batching = false">取消</div>
     </div>
-    <ItemEditor :item="itemToUpdate" :showeditor.sync="showEditor" @confirm="reload(needStore)"></ItemEditor>
+    <ItemEditor :item="itemToUpdate" :showeditor.sync="showEditor" @confirm="reload"></ItemEditor>
     <ToolBar @clear="searchClear" @search="search" :keyword.sync="keyword">
       <div class="btn" @click="create">新增</div>
     </ToolBar>
@@ -84,7 +84,7 @@
     },
 
     async created() {
-      this.reload(this.needStore)
+      this.reload()
     },
 
     methods: {
@@ -101,7 +101,6 @@
         }
         this.$toasted.success(res.msg)
         // TODO: action result notice and reload
-
       },
 
       async batchAction() {
@@ -118,7 +117,6 @@
       },
 
       async loadData(data = {}) {
-        let index = this.index++
         // data.cancel：当上一次请求还未返回时是否取消请求，true则直接取消取消此次请求，
         // 等上一次请求返回，false则结合this.index，以最后一次的请求为准， true的使用场景为loadMore，false的使用场景为reload
         if (this.loading && data.cancel) {
@@ -137,6 +135,7 @@
         this.pagenum++
         try {
           var res = await this.$request.queryItems(data)
+          this.index ++ 
         } finally {
           this.loading = false;
         }
@@ -159,7 +158,7 @@
             n => this.items.indexOf(n) === -1
           );
         }
-        res.index = index
+        res.index = this.index
         return res
       },
 
@@ -171,18 +170,19 @@
           id: item.id
         })
         this.$toasted.success(res.msg)
-        this.reload(this.needStore)
+        this.reload()
       },
 
       search() {
         this.searching = true
-        this.reload();
+        // 在搜索的收不能接受推送消息，此时需要设置needStore为false
+        this.reload(false);
       },
 
       searchClear() {
         if (this.searching) {
           this.searching = false
-          this.reload(this.needStore)
+          this.reload()
         }
       },
 
@@ -196,8 +196,8 @@
         this.showEditor = true
       },
 
-      async reload(needStore) {
-        // needStore 是否接受websocket推送过来的消息
+      async reload(needStore=this.needStore) {
+        // needStore 是否接受websocket推送过来的消息,在搜索的收不能接受推送消息，此时需要设置needStore为false
         this.showLoadNotice = false
         this.hasmore = true
         this.pagenum = 1;
@@ -208,7 +208,7 @@
         let res = await this.loadData({
           cancel: false
         })
-        if (res.index + 1 == this.index ) {
+        if (res.index == this.index ) {
           this.items.push(...res.result.rows)
         }
       },

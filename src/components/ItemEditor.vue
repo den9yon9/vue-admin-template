@@ -7,7 +7,7 @@
         </div>
         <div class="avatar-upload">
           <span>选择图片</span>
-          <input type="file" class="upload-btn" accept="image/png,image/jpeg" @change="chooseFile">
+          <input type="file" class="upload-btn" accept="image/png,image/jpeg" @change="chooseFile"  v-if="showdialog">
         </div>
       </div>
       <div class="fields">

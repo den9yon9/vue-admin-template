@@ -1,169 +1,180 @@
 <template>
   <div id="app">
-    <v-dialog/>
-    <vue-progress-bar/>
+    <v-dialog />
+    <vue-progress-bar />
     <transition name="slide" mode="out-in">
-      <router-view/>
+      <router-view />
     </transition>
   </div>
 </template>
 <script>
-import addRouter from '@/router/addRouter.js'
+  import addRouter from '@/router/addRouter.js'
 
-export default {
-  name: 'App',
-  mounted() {
-    // 刷新时重新分配路由
-    if (localStorage.getItem('login')) {
-      addRouter()
-    } else {
-      this.$router.push('/login')
+  export default {
+    name: 'App',
+    mounted() {
+      // 刷新时重新分配路由
+      if (localStorage.getItem('login')) {
+        addRouter()
+      } else {
+        this.$router.push('/login')
+      }
     }
   }
-}
 
 </script>
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  width: 100%;
-  height: 100%;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    height: 100%;
+  }
 
-/*NavRow下方的页面容器*/
-.container {
-  overflow: hidden;
-  flex-grow: 1;
-  height: 0;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
+  /*NavRow下方的页面容器*/
+  .container {
+    overflow: hidden;
+    flex-grow: 1;
+    height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
 
-/*ToolBar下方的内容容器*/
-.content-box {
-  padding: 0 1.167rem 0 1.667rem;
-  flex-grow: 1;
-  height: 0;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  margin-bottom: 0.4rem;
-}
+  /*ToolBar下方的内容容器*/
+  .content-box {
+    padding: 0 1.167rem 0 1.667rem;
+    flex-grow: 1;
+    height: 0;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-bottom: 0.4rem;
+  }
 
-/*内容区*/
-.content {
-  background-color: #fff;
-  flex-grow: 1;
-}
+  /*内容区*/
+  .content {
+    background-color: #fff;
+    flex-grow: 1;
+  }
 
-html {
-  /*font-size: 12px;*/
-  width: 100%;
-  height: 100%;
-}
+  html {
+    /*font-size: 12px;*/
+    width: 100%;
+    height: 100%;
+  }
 
-body {
-  margin: 0;
-  font-size: 12px;
-  width: 100%;
-  height: 100%;
-  min-width: 880px;
-}
+  body {
+    margin: 0;
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    min-width: 880px;
+  }
 
-p,
-ul,
-li,
-section,
-main {
-  margin: 0;
-  padding: 0;
-}
+  p,
+  ul,
+  li,
+  section,
+  main {
+    margin: 0;
+    padding: 0;
+  }
 
-a {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
+  a {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-button,
-input,
-textarea {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-}
+  button,
+  input,
+  textarea {
+    background-color: transparent;
+    border: none;
+    padding: 0 8px;
+  }
 
-button:focus,
-input:focus,
-textarea:focus {
-  outline: none;
-}
+  input[disabled] {
+    cursor: not-allowed;
+    background-color: #f1f1f1;
+    height: 30px !important;
+    color: #999
+  }
 
-button:hover {
-  cursor: pointer;
-}
+  input[disabled]::-webkit-input-placeholder {
+    color: #999;
+  }
+
+  button:focus,
+  input:focus,
+  textarea:focus {
+    outline: none;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
 
 
-/* 渐隐渐现动画*/
-.fade-enter {
-  transform: translateX(0) scale(1) skew(0deg) rotate(0deg);
-  transition: 0.25s all;
-  opacity: 0;
-}
+  /* 渐隐渐现动画*/
+  .fade-enter {
+    transform: translateX(0) scale(1) skew(0deg) rotate(0deg);
+    transition: 0.25s all;
+    opacity: 0;
+  }
 
-.fade-enter-to,
-.fade-leave {
-  transform: translateX(0) scale(1) skew(0deg) rotate(0deg);
-  opacity: 1;
-  transition: 0.25s all;
-}
+  .fade-enter-to,
+  .fade-leave {
+    transform: translateX(0) scale(1) skew(0deg) rotate(0deg);
+    opacity: 1;
+    transition: 0.25s all;
+  }
 
-.fade-leave-to {
-  opacity: 0;
-  transform: translateX(0) scale(1) skew(0deg) rotate(0deg);
-  transition: 0.25s all;
-}
+  .fade-leave-to {
+    opacity: 0;
+    transform: translateX(0) scale(1) skew(0deg) rotate(0deg);
+    transition: 0.25s all;
+  }
 
-/*浮现动画*/
-.float-enter {
-  transform: translateX(1rem) scale(0.98) skew(1deg) rotate(0deg);
-  opacity: 0;
-  transition: 0.25s all;
-}
+  /*浮现动画*/
+  .float-enter {
+    transform: translateX(1rem) scale(0.98) skew(1deg) rotate(0deg);
+    opacity: 0;
+    transition: 0.25s all;
+  }
 
-.float-enter-active,
-.float-leave {
-  opacity: 1;
-  transition: 0.35s all;
-}
+  .float-enter-active,
+  .float-leave {
+    opacity: 1;
+    transition: 0.35s all;
+  }
 
-.float-leave-active {
-  opacity: 0.5;
-  transform: translateX(1rem) scale(0.98) skew(1deg) rotate(0deg);
-  transition: 0.35s all;
-}
+  .float-leave-active {
+    opacity: 0.5;
+    transform: translateX(1rem) scale(0.98) skew(1deg) rotate(0deg);
+    transition: 0.35s all;
+  }
 
-/*滑动动画*/
-.slide-enter {
-  transform: translateX(0.3rem) scale(1) skew(0deg) rotate(0deg);
-  opacity: 0;
-  transition: 0.25s all;
-}
+  /*滑动动画*/
+  .slide-enter {
+    transform: translateX(0.3rem) scale(1) skew(0deg) rotate(0deg);
+    opacity: 0;
+    transition: 0.25s all;
+  }
 
-.slide-enter-active,
-.slide-leave {
-  opacity: 1;
-  transition: 0.35s all;
-}
+  .slide-enter-active,
+  .slide-leave {
+    opacity: 1;
+    transition: 0.35s all;
+  }
 
-.slide-leave-active {
-  opacity: 0.5;
-  transform: translateX(0.3rem) scale(1) skew(0deg) rotate(0deg);
-  transition: 0.35s all;
-}
+  .slide-leave-active {
+    opacity: 0.5;
+    transform: translateX(0.3rem) scale(1) skew(0deg) rotate(0deg);
+    transition: 0.35s all;
+  }
 
 </style>
