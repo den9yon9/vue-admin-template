@@ -14,10 +14,10 @@
       NavCol
     },
     mounted() {
-      this.wsClient = ws.call(this)
+      ws.connect.call(this)
     },
     beforeDestroy() {
-      this.wsClient.disconnect(res => {
+      ws.client.disconnect(res => {
         console.log('websocket已断开')
       })
 

@@ -16,7 +16,7 @@
     <div class="content-box" @scroll="loadMore($event)">
       <div class="content">
         <div class="empty" v-if="!items.length&&!loading">
-          <img src="../assets/empty.png" alt="empty">
+          <img src="../../assets/empty.png" alt="empty">
           <span>这里是空的</span>
         </div>
         <div class="data">
@@ -62,8 +62,8 @@
       return {
         items: [],
         itemToUpdate: null,
-        pagesize: 50,
-        pagenum: 1,
+        page_size: 50,
+        page_num: 1,
         keyword: '',
         index: 1, // 列表网络请求次序
 
@@ -125,14 +125,14 @@
         this.loading = true;
 
         delete data.cancel;
-        data.pageSize = this.pagesize;
-        data.pageNum = this.pagenum;
+        data.page_size = this.page_size;
+        data.page_num = this.page_num;
 
         data.keyword = this.searching ? this.keyword : undefined
         // 此处可添加添加固定参数
         // data.status = '0,1'
         // data.channel = 1
-        this.pagenum++
+        this.page_num++
         try {
           var res = await this.$request.queryItems(data)
           this.index ++ 
@@ -140,21 +140,21 @@
           this.loading = false;
         }
 
-        if (!res.result.rows.length) {
-          this.pagenum = this.pagenum - 1;
+        if (!res.result.content.length) {
+          this.page_num = this.page_num - 1;
           this.hasmore = false;
         }
 
         // 每条记录添加响应式checked属性,批量操作需要
         if (this.hasBatchAction) {
-          res.result.rows.forEach(n => {
+          res.result.content.forEach(n => {
             n.checked = false;
           })
         }
 
         // websocket推送的消息与历史记录的消息去重（求并集），有实时推送功能或数据库更新频繁时可用到
         if (this.needStore || this.pick) {
-          res.result.rows = res.result.rows.filter(
+          res.result.content = res.result.content.filter(
             n => this.items.indexOf(n) === -1
           );
         }
@@ -200,7 +200,7 @@
         // needStore 是否接受websocket推送过来的消息,在搜索的收不能接受推送消息，此时需要设置needStore为false
         this.showLoadNotice = false
         this.hasmore = true
-        this.pagenum = 1;
+        this.page_num = 1;
         if (needStore) {
           this.$store.commit("clearitems");
         }
@@ -209,7 +209,7 @@
           cancel: false
         })
         if (res.index == this.index ) {
-          this.items.push(...res.result.rows)
+          this.items.push(...res.result.content)
         }
       },
 
@@ -220,7 +220,7 @@
             cancel: true
           })
           if (res) {
-            this.items.push(...res.result.rows);
+            this.items.push(...res.result.content);
           }
         }
       }

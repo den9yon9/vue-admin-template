@@ -93,29 +93,31 @@
   input,
   textarea {
     background-color: transparent;
-    border: none;
-    padding: 0 8px;
+    border: solid 1px #f1f1f1;
+    padding: 0;
+    border-radius: 4px;
+    padding-left: 10px;
   }
 
-  input[disabled] {
-    cursor: not-allowed;
-    background-color: #f1f1f1;
-    height: 30px !important;
-    color: #999
-  }
-
-  input[disabled]::-webkit-input-placeholder {
-    color: #999;
+  button:hover,
+  input:hover,
+  textarea:hover {
+    border: solid 1px #4780ff;
+    transition: all 0.2s;
   }
 
   button:focus,
   input:focus,
   textarea:focus {
     outline: none;
+    border-color: #4780ff;
+    transition: all 0.2s;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, .2);
   }
 
-  button:hover {
+  button {
     cursor: pointer;
+    padding-left: 0;
   }
 
 

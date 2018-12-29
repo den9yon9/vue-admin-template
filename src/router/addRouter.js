@@ -1,28 +1,28 @@
 // 权限管理 路由，相应的页面只给有权限的用户看
 import router from './index.js'
 import Home from '@/pages/Home'
-import Users from '@/pages/Users'
-import UsersList from '@/pages/UsersList'
+import Something from '@/pages/template/something'
+import SomethingList from '@/pages/template/somethingList'
 
 import NotFound404 from '@/pages/NotFound404'
 
 
 const home = {
   path: '/',
-  redirect: '/users',
+  redirect: '/something',
   component: Home
 }
 
 
-const users = {
-  path: '/users',
-  component: Users,
-  redirect: '/users/list'
+const something = {
+  path: '/something',
+  component: Something,
+  redirect: '/something/list'
 }
 
-const users_list = {
-  path: '/users/list',
-  component: UsersList
+const somethingList = {
+  path: '/something/list',
+  component: SomethingList
 }
 
 const notfound404 = {
@@ -35,8 +35,8 @@ export default function(condition) {
   /*
     TODO: 根据condition生成路由
   */
-  home.children = [users]
-  users.children = [users_list]
+  home.children = [something]
+  something.children = [somethingList]
 
 
   // 添加到路由需要放到最后一步

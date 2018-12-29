@@ -14,7 +14,7 @@ const request = {
           method,
           url,
           data: mime === 'json' ? data : qs.stringify(data),
-          params: method=='get' ? data : undefined,
+          params: method == 'get' ? data : undefined,
           baseURL: window.http_domain,
           // withCredentials: true,  // 是否允许跨域设置cookie
         })
@@ -55,17 +55,33 @@ const request = {
       },
 
       // 查询用户列表
-      async queryUser(data){
+      async queryUser(data) {
         return await request({
-          url: '/power/queryuser',
+          url: '/user/query',
           data
         })
       },
 
-      //  用户增删改
-      async UserAction(data){
+      //  增加用户
+      async createUser(data) {
         return await request({
-          url: '/power/changeuser',
+          url: '/user/create',
+          data
+        })
+      },
+
+      // 删除用户
+      async deleteUser(data) {
+        return await request({
+          url: '/user/delete',
+          data
+        })
+      },
+
+      // 修改用户
+      async updateUser(data) {
+        return await request({
+          url: '/user/modify',
           data
         })
       }
