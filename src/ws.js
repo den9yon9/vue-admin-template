@@ -19,7 +19,7 @@ let ws = {
         console.log(data)
         // 人证合一消息
         if (data.msgType == 2) {
-          this.$store.commit('getRecord', data.data)
+          this.$store.commit('getItems', data.data)
         }
       })
     }

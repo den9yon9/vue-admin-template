@@ -14,7 +14,7 @@ const store = new Vuex.Store({
     },
 
     getItems(state, item) {
-      state.items.push(item)
+      state.items.unshift(item)
     }
 
   }
