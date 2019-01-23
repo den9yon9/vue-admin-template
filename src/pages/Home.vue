@@ -22,9 +22,8 @@
       })
 
       if (this.$route.path === '/login') {
-        localStorage.removeItem('login')
         // 回到登录页后刷新整个系统，避免动态添加重复路由
-        window.location.replace(window.location.protocol + '//' + window.location.host + window.location.pathname)
+        window.location.reload()
       }
     }
   }

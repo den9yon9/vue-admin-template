@@ -31,9 +31,6 @@
         value: 1
       }
     },
-    mounted() {
-
-    },
     methods: {
       async login() {
         if (!this.username) {
@@ -45,8 +42,6 @@
             username: this.username,
             passwd: this.$util.Encrypt(this.password)
           })
-          console.log(res)
-          localStorage.setItem('login', true)
           addRouter()
           this.$router.push('/')
         }

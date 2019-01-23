@@ -12,13 +12,9 @@
 
   export default {
     name: 'App',
-    mounted() {
+    beforeCreate() {
       // 刷新时重新分配路由
-      if (localStorage.getItem('login')) {
-        addRouter()
-      } else {
-        this.$router.push('/login')
-      }
+      addRouter()
     }
   }
 

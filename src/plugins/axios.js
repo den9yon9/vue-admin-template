@@ -29,11 +29,6 @@ const request = {
         }
         return res.data
       } catch (err) {
-        if (err.message === 'Network Error') {
-          err.message = '请求失败，网络错误'
-        } else if (err.message.substr(0, 14) === 'Request failed') {
-          err.message = `请求失败，code:${err.message.split('code')[1]}`
-        }
         await Vue.prototype.$confirm({
           content: err.message,
           hidecancel: true
