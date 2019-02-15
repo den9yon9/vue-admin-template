@@ -10,7 +10,7 @@
       <div class="batch-cancel" v-show="batching" @click="batching = false">取消</div>
     </div>
     <ItemEditor :item="itemToUpdate" :showeditor.sync="showEditor" @confirm="reload"></ItemEditor>
-    <ToolBar @clear="searchClear" @search="search" :keyword.sync="keyword">
+    <ToolBar @clear="searchClear" @search="search" :keyword.sync="keyword" search-placeholder="请输入用户名查找">
       <div class="btn" @click="create">新增</div>
     </ToolBar>
     <div class="content-box" @scroll="loadMore($event)">
@@ -19,7 +19,7 @@
           <img src="../../assets/empty.png" alt="empty">
           <span>这里是空的</span>
         </div>
-        <div class="data">
+        <div class="data" v-else>
           <Item v-for="item of items" :item="item" @update="update(item)" @shift="shift(item)" :batching="batching">{{item}}</Item>
           <!-- 占位空白组件，撑开布局 -->
           <Item v-for="item of 10" :blank="true"></Item>
@@ -93,6 +93,7 @@
         if (!confirm) return
         // TODO: 数据处理
         console.log(item)
+
         this.waiting = true
         try {
           var res = await this.$request.action()
@@ -106,6 +107,7 @@
       async batchAction() {
         // TODO: 组装数据
         console.log(this.batchItems)
+
         this.waiting = true
         try {
           var res = await this.$request.batchAction()
@@ -134,7 +136,7 @@
         // data.channel = 1
         this.page_num++
         try {
-          var res = await this.$request.queryItems(data)
+          var res = await this.$request.queryUsers(data)
           this.index ++ 
         } finally {
           this.loading = false;
@@ -166,7 +168,7 @@
       async shift(item) {
         let confirm = await this.$confirm('是否删除？')
         if (!confirm) return
-        let res = await this.$request.shiftItem({
+        let res = await this.$request.deleteUser({
           id: item.id
         })
         this.$toasted.success(res.msg)
@@ -197,7 +199,7 @@
       },
 
       async reload(needStore=this.needStore) {
-        // needStore 是否接受websocket推送过来的消息,在搜索的收不能接受推送消息，此时需要设置needStore为false
+        // needStore 是否接受websocket推送过来的消息,在搜索的时候不能接受推送消息，此时需要设置needStore为false
         this.showLoadNotice = false
         this.hasmore = true
         this.page_num = 1;
@@ -236,7 +238,6 @@
 </script>
 <style scoped>
   .empty {
-    margin: 60px auto;
     width: 100%;
     height: 100%;
     display: flex;

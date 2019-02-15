@@ -19,13 +19,13 @@ const request = {
           // withCredentials: true,  // 是否允许跨域设置cookie
         })
 
-        if (res.data.code !== 0) {
-          if (false) {
+        if (!res.data.success) {
+          if (res.data.message==='登陆失效') {
             // 如果登陆失效则跳转到登陆页
             window.location.replace(window.location.protocol + '//' + window.location.host + window.location.pathname + '#/login')
             return
           }
-          throw new Error(`code: ${res.data.code}, message: ${res.data.message}`)
+          throw new Error(`message: ${res.data.message}`)
         }
         return res.data
       } catch (err) {
@@ -41,7 +41,7 @@ const request = {
 
 
     Vue.prototype.$request = {
-
+      // 登录
       async login(data) {
         return await request({
           url: '/user/login',
@@ -49,10 +49,18 @@ const request = {
         })
       },
 
-      // 查询用户列表
-      async queryUser(data) {
+      // 登出
+      async logout(data){
         return await request({
-          url: '/user/query',
+          url: '/user/logout',
+          data
+        })
+      },
+
+      // 查询用户列表
+      async queryUsers(data) {
+        return await request({
+          url: '/user/list',
           data
         })
       },
@@ -76,7 +84,7 @@ const request = {
       // 修改用户
       async updateUser(data) {
         return await request({
-          url: '/user/modify',
+          url: '/user/update',
           data
         })
       }

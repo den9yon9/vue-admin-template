@@ -85,9 +85,17 @@
     cursor: pointer;
   }
 
-  button,
-  input,
-  textarea {
+  input,textarea{
+    border: none;
+  }
+
+  input:focus{
+    outline: none;
+  }
+
+  button.ant,
+  input.ant,
+  textarea.ant {
     background-color: transparent;
     border: solid 1px #f1f1f1;
     padding: 0;
@@ -95,27 +103,29 @@
     padding-left: 10px;
   }
 
-  button:hover,
-  input:hover,
-  textarea:hover {
+  button.ant:hover,
+  input.ant:hover,
+  textarea.ant:hover {
     border: solid 1px #4780ff;
     transition: all 0.2s;
   }
 
-  button:focus,
-  input:focus,
-  textarea:focus {
+  button.ant:focus,
+  input.ant:focus,
+  textarea.ant:focus {
     outline: none;
     border-color: #4780ff;
     transition: all 0.2s;
     box-shadow: 0 0 0 2px rgba(24, 144, 255, .2);
   }
 
+  ::-webkit-input-placeholder{
+  }
+
   button {
     cursor: pointer;
     padding-left: 0;
   }
-
 
   /* 渐隐渐现动画*/
   .fade-enter {

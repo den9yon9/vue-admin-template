@@ -9,7 +9,7 @@ import store from './store'
 import toasted from 'vue-toasted'
 import vueProgressBar from 'vue-progressbar'
 import modal from './plugins/modal.js'
-import axios from './plugins/axios.js'
+import request from './plugins/request.js'
 import util from './plugins/util.js'
 
 Vue.use(toasted, {
@@ -32,7 +32,7 @@ Vue.use(vueProgressBar, {
   inverse: false
 })
 Vue.use(modal)
-Vue.use(axios)
+Vue.use(request)
 Vue.use(util)
 
 Vue.config.productionTip = false

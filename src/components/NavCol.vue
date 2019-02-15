@@ -20,11 +20,6 @@ export default {
           name: '用户',
           icon: require("../assets/logo.png")
         },
-        {
-          path: "statistics",
-          name: '数据',
-          icon: require("../assets/logo.png")
-        }
       ]
     };
   },

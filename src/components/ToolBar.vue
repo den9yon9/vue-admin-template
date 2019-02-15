@@ -4,7 +4,7 @@
     	<slot></slot>
     </div>
     <div class="search-bar">
-      <input type="text" v-model.trim="word" :placeholder="searchPlaceholder" @keydown.enter="search">
+      <input type="text" v-model.trim="word" class="ant" :placeholder="searchPlaceholder" @keydown.enter="search">
       <div class="icon" @click="search">
         <transition name="fade">
           <div class="clear" @click.stop="clear" v-show="word"></div>
@@ -63,10 +63,15 @@ input {
   padding-left: 1rem;
   padding-right: 1.6rem;
   font-size: 1rem;
-  border: solid 1px #e3e4e5;
   border-right: none;
   border-top-left-radius: 0.167rem;
   border-bottom-left-radius: 0.167rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+input:hover{
+  border-right: none;
 }
 
 .icon {

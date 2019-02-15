@@ -14,12 +14,12 @@
       NavCol
     },
     mounted() {
-      ws.connect.call(this)
+      // ws.connect.call(this)
     },
     beforeDestroy() {
-      ws.client.disconnect(res => {
-        console.log('websocket已断开')
-      })
+      // ws.client.disconnect(res => {
+        // console.log('websocket已断开')
+      // })
 
       if (this.$route.path === '/login') {
         // 回到登录页后刷新整个系统，避免动态添加重复路由
