@@ -16,11 +16,11 @@ const request = {
           data: mime === 'json' ? data : qs.stringify(data),
           params: method == 'get' ? data : undefined,
           baseURL: window.http_domain,
-          // withCredentials: true,  // 是否允许跨域设置cookie
+          withCredentials: true,  // 是否允许跨域设置cookie
         })
 
         if (!res.data.success) {
-          if (res.data.message==='登陆失效') {
+          if (res.data.message!=='登陆失效，请登陆') {
             // 如果登陆失效则跳转到登陆页
             window.location.replace(window.location.protocol + '//' + window.location.host + window.location.pathname + '#/login')
             return
@@ -44,7 +44,7 @@ const request = {
       // 登录
       async login(data) {
         return await request({
-          url: '/user/login',
+          url: '/user/signin',
           data
         })
       },
@@ -52,7 +52,7 @@ const request = {
       // 登出
       async logout(data){
         return await request({
-          url: '/user/logout',
+          url: '/user/signout',
           data
         })
       },
@@ -68,7 +68,7 @@ const request = {
       //  增加用户
       async createUser(data) {
         return await request({
-          url: '/user/create',
+          url: '/user/signup',
           data
         })
       },
@@ -76,7 +76,7 @@ const request = {
       // 删除用户
       async deleteUser(data) {
         return await request({
-          url: '/user/delete',
+          url: '/user/del',
           data
         })
       },

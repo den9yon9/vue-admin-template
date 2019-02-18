@@ -13,7 +13,6 @@
 </template>
 <script>
 export default {
-  // menus: Object --> { name: 'somethinglist', path: '/something/list'}
   props: ['menus'],
   data() {
     return {

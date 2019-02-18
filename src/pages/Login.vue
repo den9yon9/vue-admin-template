@@ -39,8 +39,8 @@
           this.$toasted.error('请输入密码！')
         } else {
           let res = await this.$request.login({
-            username: this.username,
-            passwd: this.$util.Encrypt(this.password)
+            email: this.username,
+            password: this.password
           })
           addRouter()
           this.$router.push('/')
