@@ -13,7 +13,7 @@
       <div class="input-item">
         <Selector :value.sync="value" :options="[{name: '站三', value: 0}, { name: '李四', value: 1}]" placeholder="请选择设备"></Selector>
       </div>
-      <button @click="login">登陆</button>
+      <button @click="login" class="ant">登陆</button>
     </div>
   </div>
 </template>

@@ -100,7 +100,11 @@
     border: solid 1px #f1f1f1;
     padding: 0;
     border-radius: 4px;
-    padding-left: 10px;
+    padding: 5px 10px;
+  }
+
+  input.ant,textarea.ant{
+        /* padding-left: 10px; */
   }
 
   button.ant:hover,
@@ -124,7 +128,6 @@
 
   button {
     cursor: pointer;
-    padding-left: 0;
   }
 
   /* 渐隐渐现动画*/

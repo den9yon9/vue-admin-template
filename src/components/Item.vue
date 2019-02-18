@@ -1,10 +1,12 @@
 <template>
   <div class="item blank" v-if="blank"></div>
   <div class="item" v-else>
-    <div>{{item}}</div>
+    <div class="cols">
+      <div v-for="value of Object.values(item)" class="col">{{value}}</div>
+    </div>
     <div class="actions">
-      <div class="update action" @click="update">修改</div>
-      <div class="shift action" @click="shift">删除</div>
+      <button class="update action ant" @click="update">修改</button>
+      <button class="shift action ant" @click="shift">删除</button>
     </div>
   </div>
 </template>
@@ -40,12 +42,38 @@ export default {
 </script>
 <style scoped>
 .item {
-  margin: 0.5rem;
+  border-top: solid 1px #f1f1f1;
+  width: 100%;
+  color: #666;
+  padding: 1rem;
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cols{
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.actions{
+  display: flex;
+  width: 10%;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.action{
+  margin: 0.2rem;
 }
 
 .blank {
   height: 0;
   opacity: 0;
 }
+
+
 
 </style>

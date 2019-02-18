@@ -20,9 +20,9 @@
           <span>这里是空的</span>
         </div>
         <div class="data" v-else>
-          <Item v-for="item of items" :item="item" @update="update(item)" @shift="shift(item)" :batching="batching">{{item}}</Item>
+          <Item v-for="(item, index) of items" :item="item" :style="index%2&&'background-color: #fafafa'" @update="update(item)" @shift="shift(item)" :batching="batching">{{item}}</Item>
           <!-- 占位空白组件，撑开布局 -->
-          <Item v-for="item of 10" :blank="true"></Item>
+          <!-- <Item v-for="item of  5" :blank="true"></Item> -->
           <div class="hasmore" v-if="showLoadNotice">{{!hasmore?'已经到底了':loading?'加载中...':'下滑加载更多'}}</div>
         </div>
       </div>
@@ -46,7 +46,7 @@
 
   import ToolBar from '@/components/ToolBar'
   import ItemEditor from '@/components/ItemEditor'
-  import Item from '@/components/Item'
+  import Item from './User'
   import {
     CubeShadow as Loading
   } from 'vue-loading-spinner'
@@ -127,8 +127,10 @@
         this.loading = true;
 
         delete data.cancel;
-        data.page_size = this.page_size;
-        data.page_num = this.page_num;
+        data.pagination = {
+          page_size: this.page_size,
+          page_num: this.page_num
+        }
 
         data.keyword = this.searching ? this.keyword : undefined
         // 此处可添加添加固定参数
@@ -136,27 +138,27 @@
         // data.channel = 1
         this.page_num++
         try {
-          var res = await this.$request.queryUsers(data)
+          var res = await this.$request.queryMeituanHotelList(data)
           this.index ++ 
         } finally {
           this.loading = false;
         }
 
-        if (!res.result.content.length) {
+        if (!res.result.length) {
           this.page_num = this.page_num - 1;
           this.hasmore = false;
         }
 
         // 每条记录添加响应式checked属性,批量操作需要
         if (this.hasBatchAction) {
-          res.result.content.forEach(n => {
+          res.result.forEach(n => {
             n.checked = false;
           })
         }
 
         // websocket推送的消息与历史记录的消息去重（求并集），有实时推送功能或数据库更新频繁时可用到
         if (this.needStore || this.pick) {
-          res.result.content = res.result.content.filter(
+          res.result = res.result.filter(
             n => this.items.indexOf(n) === -1
           );
         }
@@ -211,7 +213,7 @@
           cancel: false
         })
         if (res.index == this.index ) {
-          this.items.push(...res.result.content)
+          this.items.push(...res.result)
         }
       },
 
@@ -222,7 +224,7 @@
             cancel: true
           })
           if (res) {
-            this.items.push(...res.result.content);
+            this.items.push(...res.result);
           }
         }
       }

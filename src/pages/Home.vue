@@ -18,7 +18,7 @@
     },
     beforeDestroy() {
       // ws.client.disconnect(res => {
-        // console.log('websocket已断开')
+      // console.log('websocket已断开')
       // })
 
       if (this.$route.path === '/login') {

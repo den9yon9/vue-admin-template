@@ -87,6 +87,14 @@ const request = {
           url: '/user/update',
           data
         })
+      },
+
+      // 获取美团酒店列表
+      async queryMeituanHotelList(data){
+        return await request({
+          url: '/hotel/meituan/hotelList',
+          data
+        })
       }
 
     }
