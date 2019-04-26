@@ -54,8 +54,17 @@ export default {
 
 .cols{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-grow: 1;
+}
+
+.col{
+  padding: 10px;
+  word-break: break-all;
+  max-width: 180px;
+  flex-grow: 1;
+  text-align: center;
+  line-height: 100%;
 }
 
 .actions{
